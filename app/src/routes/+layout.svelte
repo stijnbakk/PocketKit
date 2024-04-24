@@ -1,5 +1,5 @@
 <script lang="ts">
-	import '../app.pcss'
+	import '../app.scss'
   
 	import { applyAction, enhance } from '$app/forms'
 	import { pb } from '$lib/pocketbase'
