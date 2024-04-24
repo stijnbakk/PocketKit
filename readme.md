@@ -1,29 +1,49 @@
 # PocketKit
 
-PocketKit is a boilerplate for quickly starting up SaaS apps. It consists of SvelteKit, setup with Pocketbase.
+`PocketKit`is a super simple boilerplate for SvelteKit and Pocketbase, preconfigured with some things I like:
 
-SvelteKit add-ons
-- MDSvex 
-- TailwindCSS
-- DaisyUI
+- TypeScript
+- Yarn as package manager
+- Tailwind for styles, including `tailwindcss/typography`
+- SASS for styles
+- DaisyUI for styled components
+- MDSvex for MDX support
+- Prettier for auto formatting
+- Basic authentication with email+password via pocketbase
 
-SvelteKit preconfigured
 
+## Folder structure
+- **`/app`** - SvelteKit app
+- **`/server`** - PocketBase server
 
-## Setup
+## Setup for local development
+1. Make sure `pocketbase` executable is compatible with your system
+Currently included version is for MacOS ARM64, `v0.22.9`. See full list on [Pocketbase](https://pocketbase.io/docs/)
 
-
-## Local development
-```bash
-cd ./app        # navigate to app folder
-yarn            # install dependencies
-yarn dev        # launches Pocketbase and SvelteKit dev server
+2. Setup `.env` in `/app`:
+``` txt
+# .env for /app
+PUBLIC_POCKETBASE_URL=http://127.0.0.1:8090
 ```
 
-Pocketbase AdminUI available on [`http://localhost:8090/_`](http://localhost:8090/_). API is available at `http://localhost:8090/api`.
-SvelteKit dev server running by default on [`http://localhost:5173/`](http://localhost:5173/)
+2. Navigate to app `cd ./app`, install dependencies `yarn install`
+
+## Use
+```bash
+cd ./app
+# from /app
+yarn dev
+```
+
+Launches both Pocketbase and SvelteKit:
+| Service | Address |
+| -- | --- |
+| PocketBase adminUI | [http://localhost:8090/_](http://localhost:8090/_) |
+| PocketBase API | [http://localhost:8090/api](http://localhost:8090/api) |
+| SvelteKit dev server | [http://localhost:5173](http://localhost:5173) |
+
 
 ## Further development
-- [ ] Migrations for admin user in Pocketbase (skip initial setup)
-- [ ] Setup basic authentication example with SvelteKit (Lucia)
-- [ ] Setup Dockerfile deployment for deploying pocketbase to fly.io
+- [ ] Document authentication
+- [ ] Docker setup to deploy to fly.io
+- [ ] PocketBase migration file for initial setup
