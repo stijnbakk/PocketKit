@@ -1,8 +1,8 @@
 # PocketKit
 
-> A production-ready SvelteKit + PocketBase boilerplate with authentication and automatic deployment
+> Production-ready SvelteKit & Next.js + PocketBase boilerplates with authentication and automatic deployment
 
-Build and deploy full-stack applications in minutes. PocketKit combines the power of SvelteKit with PocketBase's backend-as-a-service, complete with authentication, database, and free deployment to Vercel and Fly.io.
+Build and deploy full-stack applications in minutes. PocketKit provides both SvelteKit and Next.js templates with PocketBase's backend-as-a-service, complete with authentication, database, and free deployment to Vercel and Fly.io.
 
 [![Demo](https://img.shields.io/badge/demo-live-success)](https://pocketkit-demo-app.vercel.app)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
@@ -30,21 +30,23 @@ cd PocketKit
 
 # 2. Run the get started script (does everything automatically)
 ./GET-STARTED.sh
+# Choose between SvelteKit (1) or React/Next.js (2)
 
 # 3. Start coding
-cd app
-npm run dev  # or: yarn dev / pnpm dev
+cd app-svelte  # or app-react
+npm run dev    # or: yarn dev / pnpm dev
 ```
 
 **What the script does:**
+- ✅ Lets you choose between SvelteKit or React/Next.js
 - ✅ Initializes a fresh git repository
 - ✅ Installs dependencies (auto-detects npm/yarn/pnpm)
 - ✅ Downloads PocketBase for your operating system
 - ✅ Creates initial commit
 
 **Access your app:**
-- Frontend: `http://localhost:5173`
-- Backend Admin: `http://localhost:8090/_`
+- **SvelteKit**: Frontend at `http://localhost:5173`, Backend Admin at `http://localhost:8090/_`
+- **Next.js**: Frontend at `http://localhost:3000`, Backend Admin at `http://localhost:8090/_`
 
 First time? Create your admin account at `http://localhost:8090/_` and you're ready to go!
 
@@ -71,7 +73,7 @@ The `/docs` folder contains the full documentation website built with Astro Star
 
 ```
 PocketKit/
-├── app/                    # SvelteKit frontend application
+├── app-svelte/             # SvelteKit frontend application
 │   ├── src/
 │   │   ├── routes/         # SvelteKit routes
 │   │   │   ├── auth/       # Authentication pages
@@ -82,22 +84,43 @@ PocketKit/
 │   │   └── hooks.server.ts # Server hooks for auth
 │   └── package.json
 │
-├── server/                 # PocketBase backend
+├── app-react/              # Next.js frontend application
+│   ├── src/
+│   │   ├── app/            # Next.js App Router
+│   │   │   ├── api/        # API routes
+│   │   │   ├── auth/       # Authentication pages
+│   │   │   └── ...
+│   │   └── lib/            # Shared libraries
+│   │       ├── pocketbase.ts    # PocketBase client
+│   │       └── auth.ts          # Auth utilities
+│   ├── middleware.ts       # Route protection
+│   └── package.json
+│
+├── server/                 # PocketBase backend (shared by both apps)
 │   ├── Dockerfile          # Fly.io deployment config
 │   ├── fly.toml            # Fly.io settings
 │   └── pocketbase          # PocketBase executable (download separately)
 │
+├── docs/                   # Documentation site (Starlight)
 ├── CLAUDE.md               # Development guide for Claude Code
-└── GET-STARTED.sh          # Quick setup script
+└── GET-STARTED.sh          # Quick setup script (choose framework)
 ```
 
 ## Tech Stack
 
-### Frontend
+### Frontend Options
+
+**SvelteKit App:**
 - **[SvelteKit](https://kit.svelte.dev/)** - Full-stack framework
 - **[Svelte 5](https://svelte.dev/)** - Reactive UI framework
 - **[TypeScript](https://www.typescriptlang.org/)** - Type safety
-- **[Tailwind CSS](https://tailwindcss.com/)** - Styling
+- **[Tailwind CSS 4](https://tailwindcss.com/)** - Styling
+
+**React App:**
+- **[Next.js 15](https://nextjs.org/)** - React framework with App Router
+- **[React 19](https://react.dev/)** - UI library
+- **[TypeScript](https://www.typescriptlang.org/)** - Type safety
+- **[Tailwind CSS 4](https://tailwindcss.com/)** - Styling
 
 ### Backend
 - **[PocketBase](https://pocketbase.io/)** - Backend-as-a-service
@@ -113,10 +136,18 @@ PocketKit/
 
 ### Frontend (Vercel)
 
+**For SvelteKit app:**
 1. Push your code to GitHub
 2. Import your repository on [Vercel](https://vercel.com)
-3. Set root directory to `app`
+3. Set root directory to `app-svelte`
 4. Add environment variable: `PUBLIC_POCKETBASE_URL=https://your-app.fly.dev`
+5. Deploy
+
+**For React/Next.js app:**
+1. Push your code to GitHub
+2. Import your repository on [Vercel](https://vercel.com)
+3. Set root directory to `app-react`
+4. Add environment variable: `NEXT_PUBLIC_POCKETBASE_URL=https://your-app.fly.dev`
 5. Deploy
 
 ### Backend (Fly.io)
@@ -128,14 +159,22 @@ PocketKit/
 5. Create volume: `flyctl volumes create pb_data --size 1`
 6. Deploy: `flyctl deploy`
 
-Your backend will be live at `https://your-app-name.fly.dev`. Use this URL as the `PUBLIC_POCKETBASE_URL` in Vercel.
+Your backend will be live at `https://your-app-name.fly.dev`. Use this URL as the `PUBLIC_POCKETBASE_URL` (SvelteKit) or `NEXT_PUBLIC_POCKETBASE_URL` (React) in Vercel.
 
 ## Authentication Flow
 
-PocketKit uses cookie-based authentication with server-side validation:
+Both apps use cookie-based authentication with server-side validation:
 
+**SvelteKit:**
 ```
 User → SvelteKit → Server Hook → PocketBase → SQLite
+  ↑                    ↓
+  └─── HTTP-only Cookie ────┘
+```
+
+**Next.js:**
+```
+User → Next.js → Middleware → PocketBase → SQLite
   ↑                    ↓
   └─── HTTP-only Cookie ────┘
 ```
@@ -146,27 +185,40 @@ Key features:
 - Automatic token refresh
 - CSRF protection with SameSite cookies
 
-See [CLAUDE.md](CLAUDE.md) for detailed authentication architecture documentation.
+See [CLAUDE.md](CLAUDE.md) for detailed authentication architecture documentation and [react-app/README.md](react-app/README.md) for React-specific docs.
 
 ## Environment Variables
 
-Create a `.env` file in the `app/` directory:
-
+**SvelteKit app** - Create `.env` in the `app-svelte/` directory:
 ```bash
 PUBLIC_POCKETBASE_URL=http://127.0.0.1:8090  # Local development
 # PUBLIC_POCKETBASE_URL=https://your-app.fly.dev  # Production
 ```
 
+**React app** - Create `.env.local` in the `app-react/` directory:
+```bash
+NEXT_PUBLIC_POCKETBASE_URL=http://127.0.0.1:8090  # Local development
+# NEXT_PUBLIC_POCKETBASE_URL=https://your-app.fly.dev  # Production
+```
+
 ## Scripts
 
-All scripts are run from the `app/` directory:
-
+**SvelteKit app** - Run from the `app-svelte/` directory:
 ```bash
 yarn dev          # Start both frontend and backend
 yarn dev:app      # Start only frontend
 yarn dev:server   # Start only backend
 yarn build        # Build for production
 yarn preview      # Preview production build
+```
+
+**React app** - Run from the `app-react/` directory:
+```bash
+npm run dev       # Start both frontend and backend
+npm run dev:app   # Start only frontend
+npm run dev:server # Start only backend
+npm run build     # Build for production
+npm run start     # Start production server
 ```
 
 ## Customization
@@ -181,11 +233,15 @@ yarn preview      # Preview production build
 
 1. PocketBase Admin → Collections → users → Fields
 2. Add your custom fields
-3. Update the `PbUser` type in `app/src/lib/server/pocketbase.ts`
+3. Update the `PbUser` type:
+   - **SvelteKit:** `app-svelte/src/lib/server/pocketbase.ts`
+   - **React:** `app-react/src/lib/pocketbase.ts`
 
 ### Styling
 
-PocketKit uses Tailwind CSS 4. Customize your theme in `app/src/app.css`.
+Both apps use Tailwind CSS 4:
+- **SvelteKit:** Customize in `app-svelte/src/app.css`
+- **React:** Customize in `app-react/src/app/globals.css` and `app-react/tailwind.config.ts`
 
 ## Common Issues
 
@@ -224,6 +280,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [PocketBase](https://pocketbase.io/) - Amazing backend-as-a-service
 - [SvelteKit](https://kit.svelte.dev/) - Powerful full-stack framework
 - [Svelte](https://svelte.dev/) - Cybernetically enhanced web apps
+- [Next.js](https://nextjs.org/) - The React framework for production
+- [React](https://react.dev/) - Library for building user interfaces
 
 ## Support
 

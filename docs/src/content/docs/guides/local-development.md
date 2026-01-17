@@ -26,7 +26,11 @@ cd PocketKit
 ./GET-STARTED.sh
 ```
 
-The script will automatically:
+The script will prompt you to choose between:
+1. **SvelteKit** (`app-svelte` directory)
+2. **React/Next.js** (`app-react` directory)
+
+Then it will automatically:
 1. Initialize a fresh git repository
 2. Install dependencies (auto-detects pnpm/yarn/npm)
 3. Download PocketBase for your operating system
@@ -35,7 +39,12 @@ The script will automatically:
 Once complete, start developing:
 
 ```bash
-cd app
+# For SvelteKit
+cd app-svelte
+npm run dev  # or: yarn dev / pnpm dev
+
+# For React/Next.js
+cd app-react
 npm run dev  # or: yarn dev / pnpm dev
 ```
 
@@ -49,22 +58,30 @@ If you prefer to set up manually or the script doesn't work for your system, fol
 
 ### Project Structure
 
-PocketKit is organized into two main directories:
+PocketKit provides two frontend options:
 
 ```
 PocketKit/
-├── app/           # SvelteKit frontend application
-├── server/        # PocketBase backend
+├── app-svelte/    # SvelteKit frontend application
+├── app-react/     # Next.js frontend application
+├── server/        # PocketBase backend (shared by both)
 └── docs/          # Documentation (Starlight)
 ```
 
+Choose one app directory based on your preferred framework.
+
 ## Install Dependencies
 
-Navigate to the `app` directory and install the dependencies:
+Navigate to your chosen app directory and install the dependencies:
 
 ```bash
-cd app
+# For SvelteKit
+cd app-svelte
 yarn install
+
+# OR for React/Next.js
+cd app-react
+npm install
 ```
 
 ## Download PocketBase
@@ -85,9 +102,11 @@ chmod +x ../server/pocketbase
 
 ## Start Development Server
 
-From the `app` directory, run:
+From your chosen app directory, run:
 
+**SvelteKit:**
 ```bash
+cd app-svelte
 yarn dev
 ```
 
@@ -95,14 +114,36 @@ This single command will:
 - Start the SvelteKit dev server on `http://localhost:5173`
 - Launch PocketBase on `http://localhost:8090`
 
-:::tip
-The `yarn dev` command runs both servers simultaneously. Check `app/package.json` to see how this works:
+**React/Next.js:**
+```bash
+cd app-react
+npm run dev
+```
 
+This single command will:
+- Start the Next.js dev server on `http://localhost:3000`
+- Launch PocketBase on `http://localhost:8090`
+
+:::tip
+The `dev` command in both apps runs both servers simultaneously. Check the respective `package.json` to see how this works:
+
+**SvelteKit** (`app-svelte/package.json`):
 ```json
 {
   "scripts": {
     "dev": "yarn dev:app & yarn dev:server",
     "dev:app": "vite dev",
+    "dev:server": "cd ../server && ./pocketbase serve"
+  }
+}
+```
+
+**Next.js** (`app-react/package.json`):
+```json
+{
+  "scripts": {
+    "dev": "concurrently \"npm run dev:app\" \"npm run dev:server\"",
+    "dev:app": "next dev",
     "dev:server": "cd ../server && ./pocketbase serve"
   }
 }
@@ -113,7 +154,12 @@ The `yarn dev` command runs both servers simultaneously. Check `app/package.json
 
 Once both servers are running:
 
+**SvelteKit:**
 - **Frontend**: http://localhost:5173
+- **PocketBase Admin**: http://localhost:8090/_
+
+**React/Next.js:**
+- **Frontend**: http://localhost:3000
 - **PocketBase Admin**: http://localhost:8090/_
 
 ## Set Up PocketBase Admin
@@ -126,23 +172,35 @@ On first run, you'll need to create an admin account:
 
 ## Environment Variables
 
-The app uses environment variables for configuration. Create a `.env` file in the `app/` directory:
+Both apps use environment variables for configuration.
+
+**SvelteKit** - Create `.env` in the `app-svelte/` directory:
 
 ```bash
 PUBLIC_POCKETBASE_URL=http://127.0.0.1:8090
 ```
 
+**React/Next.js** - Create `.env.local` in the `app-react/` directory:
+
+```bash
+NEXT_PUBLIC_POCKETBASE_URL=http://127.0.0.1:8090
+```
+
 :::note
-This is the default value. When you deploy to production, you'll update this to your Fly.io URL.
+These are the default values for local development. When you deploy to production, you'll update these to your Fly.io URL.
 :::
 
 ## Development Workflow
 
 ### Making Changes
 
-- **Frontend code**: Edit files in `app/src/` - changes will hot reload automatically
-- **Backend schema**: Use the PocketBase admin UI at http://localhost:8090/_
-- **Backend hooks**: Add JavaScript/TypeScript files to `server/pb_hooks/` (requires PocketBase restart)
+**Frontend code**: Edit files in your chosen app directory - changes will hot reload automatically
+- **SvelteKit**: `app-svelte/src/`
+- **Next.js**: `app-react/src/`
+
+**Backend:**
+- **Schema**: Use the PocketBase admin UI at http://localhost:8090/_
+- **Hooks**: Add JavaScript/TypeScript files to `server/pb_hooks/` (requires PocketBase restart)
 
 ### Database
 
@@ -154,11 +212,17 @@ The `server/pb_data/` directory is gitignored. Your local database is separate f
 
 ### Testing Authentication
 
-The boilerplate includes complete auth flows:
+Both apps include complete auth flows:
 
+**SvelteKit:**
 - **Register**: http://localhost:5173/auth/register
 - **Login**: http://localhost:5173/auth/login
 - **Logout**: Handled via the logout endpoint
+
+**React/Next.js:**
+- **Register**: http://localhost:3000/auth/register
+- **Login**: http://localhost:3000/auth/login
+- **Logout**: Click the logout button (handled via API route)
 
 Create a test user to verify everything works.
 
@@ -195,4 +259,6 @@ Now that you have PocketKit running locally:
 
 - Explore the [Authentication system](/concepts/auth/) to understand how auth works
 - Learn how to [Deploy to production](/guides/deployment/)
-- Start building your app by modifying the files in `app/src/routes/`
+- Start building your app:
+  - **SvelteKit**: Modify files in `app-svelte/src/routes/`
+  - **Next.js**: Modify files in `app-react/src/app/`
