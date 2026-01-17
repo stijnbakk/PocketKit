@@ -1,0 +1,53 @@
+name: Fly Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+jobs:
+  deploy:
+    name: Deploy to Fly.io
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2 # Fetch at least the last two commits
+
+      - name: Check for changes in /server directory
+        id: check_changes
+        run: |
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^server/' || true)
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "No changes in /server directory or its subdirectories."
+            echo "no_changes=true" >> $GITHUB_ENV
+          else
+            echo "Changes detected in /server directory or its subdirectories."
+            echo "$CHANGED_FILES"
+            echo "no_changes=false" >> $GITHUB_ENV
+          fi
+
+      - name: Exit if no changes in /server
+        if: env.no_changes == 'true'
+        run: |
+          echo "Success, no files in /server changed, no need to redeploy Fly.io."
+          exit 0
+
+      - name: Change to server directory
+        if: env.no_changes == 'false'
+        run: cd server && ls -la # Navigate to the 'server' directory and list files to confirm
+
+      - name: Setup flyctl
+        if: env.no_changes == 'false'
+        uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Deploy
+        if: env.no_changes == 'false'
+        run: |
+          cd server
+          flyctl deploy --remote-only -a pocketkit-demo-app-server
