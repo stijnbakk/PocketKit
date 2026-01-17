@@ -1,0 +1,73 @@
+---
+title: Welcome to PocketKit
+description: A production-ready SvelteKit + PocketBase boilerplate with auth and automatic deployment.
+template: splash
+hero:
+  tagline: Build and deploy full-stack apps in minutes with SvelteKit and PocketBase
+  actions:
+    - text: Get Started
+      link: /guides/local-development/
+      icon: right-arrow
+      variant: primary
+    - text: View Demo
+      link: https://pocketkit-demo-app.vercel.app
+      icon: external
+      variant: minimal
+    - text: GitHub
+      link: https://github.com/stijnbakk/PocketKit
+      icon: github
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## What is PocketKit?
+
+PocketKit is a complete boilerplate for building full-stack applications with **SvelteKit** (frontend) and **PocketBase** (backend). It includes everything you need to start building:
+
+- **Authentication ready** - Login, register, and session management configured
+- **Free deployment** - Frontend on Vercel, backend on Fly.io
+- **Automatic deployment** - Push to GitHub and deploy automatically
+- **Local development** - Single command to run both frontend and backend
+- **TypeScript** - Fully typed with SvelteKit and PocketBase SDKs
+
+## Quick Start
+
+<CardGrid stagger>
+	<Card title="Local Development" icon="laptop">
+		Clone the repo and run `yarn dev` to start both the frontend and PocketBase backend locally.
+
+		[Learn more →](/guides/local-development/)
+	</Card>
+	<Card title="Deploy to Production" icon="rocket">
+		Deploy your frontend to Vercel and backend to Fly.io with free tiers.
+
+		[Learn more →](/guides/deployment/)
+	</Card>
+	<Card title="Authentication" icon="approve-check">
+		Authentication is already configured with cookie-based sessions and server-side validation.
+
+		[Learn more →](/concepts/auth/)
+	</Card>
+	<Card title="GitHub Repository" icon="github">
+		View the source code, report issues, or contribute to the project.
+
+		[View on GitHub →](https://github.com/stijnbakk/PocketKit)
+	</Card>
+</CardGrid>
+
+## Why PocketKit?
+
+Building full-stack apps requires setting up authentication, databases, deployment pipelines, and more. PocketKit handles all of this so you can focus on building your product:
+
+- **No backend code needed** - PocketBase provides a complete backend with REST API, real-time subscriptions, and admin UI
+- **Free hosting** - Both Vercel and Fly.io offer generous free tiers
+- **Fast development** - Hot reload for both frontend and backend during development
+- **Production-ready** - Includes security best practices, TypeScript, and proper error handling
+
+## Tech Stack
+
+- **Frontend**: SvelteKit 2 with Svelte 5, TypeScript, and Tailwind CSS
+- **Backend**: PocketBase (Go-based backend with SQLite)
+- **Deployment**: Vercel (frontend) + Fly.io (backend)
+- **Database**: SQLite (managed by PocketBase)
