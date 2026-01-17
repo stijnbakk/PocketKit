@@ -33,9 +33,32 @@ PocketKit is a complete boilerplate for building full-stack applications with **
 
 ## Quick Start
 
+Get started in 60 seconds:
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/stijnbakk/PocketKit.git
+cd PocketKit
+
+# 2. Run the get started script (auto-installs everything)
+./GET-STARTED.sh
+
+# 3. Start coding
+cd app
+npm run dev  # or: yarn dev / pnpm dev
+```
+
+The script automatically:
+- Initializes a fresh git repository
+- Installs dependencies (using pnpm/yarn/npm)
+- Downloads PocketBase for your OS
+- Creates your initial commit
+
+Visit `http://localhost:5173` to see your app and `http://localhost:8090/_` to set up your admin account.
+
 <CardGrid stagger>
 	<Card title="Local Development" icon="laptop">
-		Clone the repo and run `yarn dev` to start both the frontend and PocketBase backend locally.
+		Learn about the development workflow, file structure, and available commands.
 
 		[Learn more →](/guides/local-development/)
 	</Card>

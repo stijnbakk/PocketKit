@@ -19,63 +19,40 @@ Build and deploy full-stack applications in minutes. PocketKit combines the powe
 - 📊 **Real-time Ready** - PocketBase subscriptions for live updates
 - 🗄️ **SQLite Database** - Lightweight, serverless database included
 
-## Quick Start
+## ⚡ Quick Start
+
+Get started in 60 seconds:
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/stijnbakk/PocketKit.git
+cd PocketKit
+
+# 2. Run the get started script (does everything automatically)
+./GET-STARTED.sh
+
+# 3. Start coding
+cd app
+npm run dev  # or: yarn dev / pnpm dev
+```
+
+**What the script does:**
+- ✅ Initializes a fresh git repository
+- ✅ Installs dependencies (auto-detects npm/yarn/pnpm)
+- ✅ Downloads PocketBase for your operating system
+- ✅ Creates initial commit
+
+**Access your app:**
+- Frontend: `http://localhost:5173`
+- Backend Admin: `http://localhost:8090/_`
+
+First time? Create your admin account at `http://localhost:8090/_` and you're ready to go!
 
 ### Prerequisites
 
 - Node.js 18+
-- Yarn package manager
+- npm, yarn, or pnpm
 - Git
-
-### Local Development
-
-1. **Clone the repository**
-
-```bash
-git clone https://github.com/stijnbakk/PocketKit.git
-cd PocketKit
-```
-
-2. **Run the get started script**
-
-This script will prepare PocketKit for your new project by removing the docs folder and git history, then initializing a fresh repository:
-
-```bash
-./GET-STARTED.sh
-```
-
-3. **Install dependencies**
-
-```bash
-cd app
-yarn install
-```
-
-4. **Download PocketBase**
-
-Download PocketBase from [pocketbase.io](https://pocketbase.io/docs/) and place the executable in the `server/` directory.
-
-On macOS/Linux, make it executable:
-
-```bash
-chmod +x server/pocketbase
-```
-
-5. **Start development servers**
-
-```bash
-yarn dev
-```
-
-This will start:
-- SvelteKit dev server at `http://localhost:5173`
-- PocketBase backend at `http://localhost:8090`
-
-6. **Create admin account**
-
-Visit `http://localhost:8090/_` to set up your PocketBase admin account.
-
-That's it! Visit `http://localhost:5173` to see your app.
 
 ## Demo
 
@@ -83,12 +60,12 @@ Check out the live demo: **[pocketkit-demo-app.vercel.app](https://pocketkit-dem
 
 ## Documentation
 
-All the documentation you need is right here in this README:
+- 📖 **[Full Documentation Site](docs/)** - Complete guides and reference (Starlight)
+- 🚀 **Quick Start** - See above for 60-second setup
+- 🤖 **[CLAUDE.md](CLAUDE.md)** - Guide for working with this codebase in Claude Code
+- 📚 **This README** - Overview, deployment, and architecture
 
-- **Quick Start** - Get up and running in minutes (see above)
-- **Deployment** - Deploy to Vercel and Fly.io (see below)
-- **Authentication Flow** - Understand how auth works (see below)
-- **[CLAUDE.md](CLAUDE.md)** - Comprehensive guide for working with this codebase
+The `/docs` folder contains the full documentation website built with Astro Starlight.
 
 ## Project Structure
 
