@@ -1,9 +1,9 @@
 ---
 title: Welcome to PocketKit
-description: A production-ready SvelteKit + PocketBase boilerplate with auth and automatic deployment.
+description: A production-ready SvelteKit/Next.js + PocketBase boilerplate with auth and automatic deployment.
 template: splash
 hero:
-  tagline: Build and deploy full-stack apps in minutes with SvelteKit and PocketBase
+  tagline: Build and deploy full-stack apps in minutes with SvelteKit or Next.js and PocketBase
   actions:
     - text: Get Started
       link: /guides/local-development/
@@ -23,7 +23,7 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 
 ## What is PocketKit?
 
-PocketKit is a complete boilerplate for building full-stack applications with **SvelteKit** (frontend) and **PocketBase** (backend). It includes everything you need to start building:
+PocketKit is a complete boilerplate for building full-stack applications with your choice of **SvelteKit** or **Next.js** (frontend) and **PocketBase** (backend). It includes everything you need to start building:
 
 - **Authentication ready** - Login, register, and session management configured
 - **Free deployment** - Frontend on Vercel, backend on Fly.io
@@ -42,19 +42,23 @@ cd PocketKit
 
 # 2. Run the get started script (auto-installs everything)
 ./GET-STARTED.sh
+# Choose between SvelteKit or React/Next.js
 
 # 3. Start coding
-cd app
-npm run dev  # or: yarn dev / pnpm dev
+cd app-svelte  # or app-react
+npm run dev    # or: yarn dev / pnpm dev
 ```
 
 The script automatically:
+- Lets you choose between SvelteKit or React/Next.js
 - Initializes a fresh git repository
 - Installs dependencies (using pnpm/yarn/npm)
 - Downloads PocketBase for your OS
 - Creates your initial commit
 
-Visit `http://localhost:5173` to see your app and `http://localhost:8090/_` to set up your admin account.
+**Access your app:**
+- SvelteKit: `http://localhost:5173` (frontend) + `http://localhost:8090/_` (backend admin)
+- Next.js: `http://localhost:3000` (frontend) + `http://localhost:8090/_` (backend admin)
 
 <CardGrid stagger>
 	<Card title="Local Development" icon="laptop">
@@ -90,7 +94,14 @@ Building full-stack apps requires setting up authentication, databases, deployme
 
 ## Tech Stack
 
-- **Frontend**: SvelteKit 2 with Svelte 5, TypeScript, and Tailwind CSS
-- **Backend**: PocketBase (Go-based backend with SQLite)
-- **Deployment**: Vercel (frontend) + Fly.io (backend)
+**Frontend Options:**
+- **SvelteKit**: SvelteKit 2 with Svelte 5, TypeScript, and Tailwind CSS 4
+- **Next.js**: Next.js 15 with React 19, TypeScript, and Tailwind CSS 4
+
+**Backend:**
+- **PocketBase**: Go-based backend with SQLite
 - **Database**: SQLite (managed by PocketBase)
+
+**Deployment:**
+- **Vercel**: Frontend hosting (both SvelteKit and Next.js)
+- **Fly.io**: Backend hosting

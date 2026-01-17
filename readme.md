@@ -21,9 +21,7 @@ Build and deploy full-stack applications in minutes. PocketKit provides both Sve
 
 ## ⚡ Quick Start
 
-Choose your framework and get started:
-
-### SvelteKit App (Original)
+Get started in 60 seconds:
 
 ```bash
 # 1. Clone the repository
@@ -32,42 +30,23 @@ cd PocketKit
 
 # 2. Run the get started script (does everything automatically)
 ./GET-STARTED.sh
+# Choose between SvelteKit (1) or React/Next.js (2)
 
 # 3. Start coding
-cd app
-npm run dev  # or: yarn dev / pnpm dev
-```
-
-### React/Next.js App (New)
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/stijnbakk/PocketKit.git
-cd PocketKit
-
-# 2. Set up the React app
-cd react-app
-npm install  # or: yarn / pnpm install
-cp .env.example .env.local
-
-# 3. Download PocketBase (if not already done)
-cd ../server
-# Download from https://pocketbase.io/docs/ for your OS
-
-# 4. Start coding
-cd ../react-app
-npm run dev  # Starts both frontend and backend
+cd app-svelte  # or app-react
+npm run dev    # or: yarn dev / pnpm dev
 ```
 
 **What the script does:**
+- ✅ Lets you choose between SvelteKit or React/Next.js
 - ✅ Initializes a fresh git repository
 - ✅ Installs dependencies (auto-detects npm/yarn/pnpm)
 - ✅ Downloads PocketBase for your operating system
 - ✅ Creates initial commit
 
 **Access your app:**
-- Frontend: `http://localhost:5173`
-- Backend Admin: `http://localhost:8090/_`
+- **SvelteKit**: Frontend at `http://localhost:5173`, Backend Admin at `http://localhost:8090/_`
+- **Next.js**: Frontend at `http://localhost:3000`, Backend Admin at `http://localhost:8090/_`
 
 First time? Create your admin account at `http://localhost:8090/_` and you're ready to go!
 
@@ -94,7 +73,7 @@ The `/docs` folder contains the full documentation website built with Astro Star
 
 ```
 PocketKit/
-├── app/                    # SvelteKit frontend application
+├── app-svelte/             # SvelteKit frontend application
 │   ├── src/
 │   │   ├── routes/         # SvelteKit routes
 │   │   │   ├── auth/       # Authentication pages
@@ -105,7 +84,7 @@ PocketKit/
 │   │   └── hooks.server.ts # Server hooks for auth
 │   └── package.json
 │
-├── react-app/              # Next.js frontend application (NEW!)
+├── app-react/              # Next.js frontend application
 │   ├── src/
 │   │   ├── app/            # Next.js App Router
 │   │   │   ├── api/        # API routes
@@ -124,7 +103,7 @@ PocketKit/
 │
 ├── docs/                   # Documentation site (Starlight)
 ├── CLAUDE.md               # Development guide for Claude Code
-└── GET-STARTED.sh          # Quick setup script (for SvelteKit app)
+└── GET-STARTED.sh          # Quick setup script (choose framework)
 ```
 
 ## Tech Stack
@@ -160,14 +139,14 @@ PocketKit/
 **For SvelteKit app:**
 1. Push your code to GitHub
 2. Import your repository on [Vercel](https://vercel.com)
-3. Set root directory to `app`
+3. Set root directory to `app-svelte`
 4. Add environment variable: `PUBLIC_POCKETBASE_URL=https://your-app.fly.dev`
 5. Deploy
 
 **For React/Next.js app:**
 1. Push your code to GitHub
 2. Import your repository on [Vercel](https://vercel.com)
-3. Set root directory to `react-app`
+3. Set root directory to `app-react`
 4. Add environment variable: `NEXT_PUBLIC_POCKETBASE_URL=https://your-app.fly.dev`
 5. Deploy
 
@@ -210,13 +189,13 @@ See [CLAUDE.md](CLAUDE.md) for detailed authentication architecture documentatio
 
 ## Environment Variables
 
-**SvelteKit app** - Create `.env` in the `app/` directory:
+**SvelteKit app** - Create `.env` in the `app-svelte/` directory:
 ```bash
 PUBLIC_POCKETBASE_URL=http://127.0.0.1:8090  # Local development
 # PUBLIC_POCKETBASE_URL=https://your-app.fly.dev  # Production
 ```
 
-**React app** - Create `.env.local` in the `react-app/` directory:
+**React app** - Create `.env.local` in the `app-react/` directory:
 ```bash
 NEXT_PUBLIC_POCKETBASE_URL=http://127.0.0.1:8090  # Local development
 # NEXT_PUBLIC_POCKETBASE_URL=https://your-app.fly.dev  # Production
@@ -224,7 +203,7 @@ NEXT_PUBLIC_POCKETBASE_URL=http://127.0.0.1:8090  # Local development
 
 ## Scripts
 
-**SvelteKit app** - Run from the `app/` directory:
+**SvelteKit app** - Run from the `app-svelte/` directory:
 ```bash
 yarn dev          # Start both frontend and backend
 yarn dev:app      # Start only frontend
@@ -233,7 +212,7 @@ yarn build        # Build for production
 yarn preview      # Preview production build
 ```
 
-**React app** - Run from the `react-app/` directory:
+**React app** - Run from the `app-react/` directory:
 ```bash
 npm run dev       # Start both frontend and backend
 npm run dev:app   # Start only frontend
@@ -255,14 +234,14 @@ npm run start     # Start production server
 1. PocketBase Admin → Collections → users → Fields
 2. Add your custom fields
 3. Update the `PbUser` type:
-   - **SvelteKit:** `app/src/lib/server/pocketbase.ts`
-   - **React:** `react-app/src/lib/pocketbase.ts`
+   - **SvelteKit:** `app-svelte/src/lib/server/pocketbase.ts`
+   - **React:** `app-react/src/lib/pocketbase.ts`
 
 ### Styling
 
 Both apps use Tailwind CSS 4:
-- **SvelteKit:** Customize in `app/src/app.css`
-- **React:** Customize in `react-app/src/app/globals.css` and `react-app/tailwind.config.ts`
+- **SvelteKit:** Customize in `app-svelte/src/app.css`
+- **React:** Customize in `app-react/src/app/globals.css` and `app-react/tailwind.config.ts`
 
 ## Common Issues
 

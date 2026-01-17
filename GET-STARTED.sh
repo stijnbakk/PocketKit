@@ -10,6 +10,29 @@ echo ""
 echo "This script will help you set up your new project."
 echo ""
 
+# Step 0: Choose framework
+echo "📦 Which framework would you like to use?"
+echo ""
+echo "  1) SvelteKit (app-svelte)"
+echo "  2) React/Next.js (app-react)"
+echo ""
+read -p "Enter your choice (1 or 2): " -n 1 -r
+echo ""
+
+if [[ $REPLY == "1" ]]; then
+    APP_DIR="app-svelte"
+    FRAMEWORK="SvelteKit"
+    echo "✅ Selected: SvelteKit"
+elif [[ $REPLY == "2" ]]; then
+    APP_DIR="app-react"
+    FRAMEWORK="React/Next.js"
+    echo "✅ Selected: React/Next.js"
+else
+    echo "❌ Invalid choice. Please run the script again and select 1 or 2."
+    exit 1
+fi
+echo ""
+
 # Step 1: Initialize Git
 echo "📦 Step 1/4: Setting up git repository..."
 if [ -d ".git" ]; then
@@ -32,13 +55,13 @@ echo ""
 echo "📦 Step 2/4: Installing dependencies..."
 if command -v pnpm &> /dev/null; then
     echo "Using pnpm..."
-    cd app && pnpm install && cd ..
+    cd "$APP_DIR" && pnpm install && cd ..
 elif command -v yarn &> /dev/null; then
     echo "Using yarn..."
-    cd app && yarn install && cd ..
+    cd "$APP_DIR" && yarn install && cd ..
 elif command -v npm &> /dev/null; then
     echo "Using npm..."
-    cd app && npm install && cd ..
+    cd "$APP_DIR" && npm install && cd ..
 else
     echo "⚠️  No package manager found. Please install Node.js and a package manager."
     echo "Skipping dependency installation."
@@ -101,12 +124,20 @@ echo ""
 echo "Next steps:"
 echo ""
 echo "  1. Start development servers:"
-echo "     cd app"
+echo "     cd $APP_DIR"
 echo "     npm run dev    (or: yarn dev / pnpm dev)"
 echo ""
-echo "  2. Access your app:"
-echo "     Frontend:  http://localhost:5173"
-echo "     Backend:   http://localhost:8090/_"
+
+if [[ $APP_DIR == "app-svelte" ]]; then
+    echo "  2. Access your app:"
+    echo "     Frontend:  http://localhost:5173"
+    echo "     Backend:   http://localhost:8090/_"
+else
+    echo "  2. Access your app:"
+    echo "     Frontend:  http://localhost:3000"
+    echo "     Backend:   http://localhost:8090/_"
+fi
+
 echo ""
 echo "  3. Create PocketBase admin account at:"
 echo "     http://localhost:8090/_"
