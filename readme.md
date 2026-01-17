@@ -5,7 +5,6 @@
 Build and deploy full-stack applications in minutes. PocketKit combines the power of SvelteKit with PocketBase's backend-as-a-service, complete with authentication, database, and free deployment to Vercel and Fly.io.
 
 [![Demo](https://img.shields.io/badge/demo-live-success)](https://pocketkit-demo-app.vercel.app)
-[![Documentation](https://img.shields.io/badge/docs-available-blue)](https://github.com/stijnbakk/PocketKit/tree/main/docs)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 ## Features
@@ -20,49 +19,40 @@ Build and deploy full-stack applications in minutes. PocketKit combines the powe
 - 📊 **Real-time Ready** - PocketBase subscriptions for live updates
 - 🗄️ **SQLite Database** - Lightweight, serverless database included
 
-## Quick Start
+## ⚡ Quick Start
+
+Get started in 60 seconds:
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/stijnbakk/PocketKit.git
+cd PocketKit
+
+# 2. Run the get started script (does everything automatically)
+./GET-STARTED.sh
+
+# 3. Start coding
+cd app
+npm run dev  # or: yarn dev / pnpm dev
+```
+
+**What the script does:**
+- ✅ Initializes a fresh git repository
+- ✅ Installs dependencies (auto-detects npm/yarn/pnpm)
+- ✅ Downloads PocketBase for your operating system
+- ✅ Creates initial commit
+
+**Access your app:**
+- Frontend: `http://localhost:5173`
+- Backend Admin: `http://localhost:8090/_`
+
+First time? Create your admin account at `http://localhost:8090/_` and you're ready to go!
 
 ### Prerequisites
 
 - Node.js 18+
-- Yarn package manager
+- npm, yarn, or pnpm
 - Git
-
-### Local Development
-
-1. **Clone the repository**
-
-```bash
-git clone https://github.com/stijnbakk/PocketKit.git
-cd PocketKit
-```
-
-2. **Install dependencies**
-
-```bash
-cd app
-yarn install
-```
-
-3. **Download PocketBase**
-
-Download PocketBase from [pocketbase.io](https://pocketbase.io/docs/) and place the executable in the `server/` directory.
-
-4. **Start development servers**
-
-```bash
-yarn dev
-```
-
-This will start:
-- SvelteKit dev server at `http://localhost:5173`
-- PocketBase backend at `http://localhost:8090`
-
-5. **Create admin account**
-
-Visit `http://localhost:8090/_` to set up your PocketBase admin account.
-
-That's it! Visit `http://localhost:5173` to see your app.
 
 ## Demo
 
@@ -70,11 +60,12 @@ Check out the live demo: **[pocketkit-demo-app.vercel.app](https://pocketkit-dem
 
 ## Documentation
 
-Comprehensive documentation is available in the `/docs` folder:
+- 📖 **[Full Documentation Site](docs/)** - Complete guides and reference (Starlight)
+- 🚀 **Quick Start** - See above for 60-second setup
+- 🤖 **[CLAUDE.md](CLAUDE.md)** - Guide for working with this codebase in Claude Code
+- 📚 **This README** - Overview, deployment, and architecture
 
-- [**Local Development Guide**](docs/src/content/docs/guides/local-development.md) - Get started with local development
-- [**Deployment Guide**](docs/src/content/docs/guides/deployment.md) - Deploy to Vercel and Fly.io
-- [**Authentication Guide**](docs/src/content/docs/concepts/auth.md) - Understand how auth works
+The `/docs` folder contains the full documentation website built with Astro Starlight.
 
 ## Project Structure
 
@@ -96,7 +87,8 @@ PocketKit/
 │   ├── fly.toml            # Fly.io settings
 │   └── pocketbase          # PocketBase executable (download separately)
 │
-└── docs/                   # Starlight documentation
+├── CLAUDE.md               # Development guide for Claude Code
+└── GET-STARTED.sh          # Quick setup script
 ```
 
 ## Tech Stack
@@ -131,11 +123,12 @@ PocketKit/
 
 1. Install Fly.io CLI: `curl -L https://fly.io/install.sh | sh`
 2. Login: `flyctl auth login`
-3. Update `server/fly.toml` with your app name
-4. Create volume: `flyctl volumes create pb_data --size 1`
-5. Deploy: `flyctl deploy`
+3. Navigate to server directory: `cd server`
+4. Update `fly.toml` with your app name
+5. Create volume: `flyctl volumes create pb_data --size 1`
+6. Deploy: `flyctl deploy`
 
-For detailed deployment instructions, see the [Deployment Guide](docs/src/content/docs/guides/deployment.md).
+Your backend will be live at `https://your-app-name.fly.dev`. Use this URL as the `PUBLIC_POCKETBASE_URL` in Vercel.
 
 ## Authentication Flow
 
@@ -153,7 +146,7 @@ Key features:
 - Automatic token refresh
 - CSRF protection with SameSite cookies
 
-Learn more in the [Authentication Guide](docs/src/content/docs/concepts/auth.md).
+See [CLAUDE.md](CLAUDE.md) for detailed authentication architecture documentation.
 
 ## Environment Variables
 
@@ -234,7 +227,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-- 📖 [Read the docs](docs/)
+- 📖 Read the [README.md](readme.md) and [CLAUDE.md](CLAUDE.md)
 - 🐛 [Report issues](https://github.com/stijnbakk/PocketKit/issues)
 - 💬 [Discussions](https://github.com/stijnbakk/PocketKit/discussions)
 - ⭐ Star this repo if you find it helpful!

@@ -10,19 +10,44 @@ This guide will help you get PocketKit running on your local machine.
 Before you begin, make sure you have the following installed:
 
 - **Node.js** (v18 or higher)
-- **Yarn** package manager
+- **Package manager** (npm, yarn, or pnpm)
 - **Git**
 
-## Clone the Repository
+## Quick Setup (Recommended)
 
-First, clone the PocketKit repository:
+The fastest way to get started is using the automated setup script:
 
 ```bash
+# Clone the repository
 git clone https://github.com/stijnbakk/PocketKit.git
 cd PocketKit
+
+# Run the get started script
+./GET-STARTED.sh
 ```
 
-## Project Structure
+The script will automatically:
+1. Initialize a fresh git repository
+2. Install dependencies (auto-detects pnpm/yarn/npm)
+3. Download PocketBase for your operating system
+4. Create an initial commit
+
+Once complete, start developing:
+
+```bash
+cd app
+npm run dev  # or: yarn dev / pnpm dev
+```
+
+:::tip
+The `GET-STARTED.sh` script handles everything! Skip to [Access the Application](#access-the-application) if you used this method.
+:::
+
+## Manual Setup
+
+If you prefer to set up manually or the script doesn't work for your system, follow these steps.
+
+### Project Structure
 
 PocketKit is organized into two main directories:
 

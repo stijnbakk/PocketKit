@@ -4,12 +4,32 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-PocketKit is a production-ready SvelteKit + PocketBase boilerplate with built-in authentication and deployment configurations for Vercel (frontend) and Fly.io (backend).
+PocketKit is a **template repository** for quickly starting SvelteKit + PocketBase projects with production-ready authentication and deployment configurations.
+
+**Repository Purpose:**
+- **`/docs`** - Public documentation website (Starlight) that serves as the project's public site
+- **`/app` + `/server`** - The actual template/boilerplate that users clone to start their projects
+- **`GET-STARTED.sh`** - Automated setup script for quick project initialization
+
+**User Workflow:**
+1. Clone or fork this repository
+2. Run `./GET-STARTED.sh` to automatically:
+   - Initialize a fresh git repository (optionally removing .git)
+   - Install dependencies using pnpm/yarn/npm
+   - Download PocketBase executable
+   - Create initial commit
+3. Run `cd app && npm run dev` (or yarn/pnpm) to start coding
+
+**IMPORTANT FOR DEVELOPMENT:**
+When making changes to PocketKit, you must update BOTH:
+1. **The demo app** - Make changes in `/app` and `/server` directories
+2. **The documentation** - Update corresponding docs in `/docs` to reflect changes
 
 **Tech Stack:**
 - Frontend: SvelteKit (Svelte 5), TypeScript, Tailwind CSS 4
 - Backend: PocketBase (Go-based BaaS with SQLite)
 - Deployment: Vercel (frontend), Fly.io (backend)
+- Docs: Astro Starlight
 
 ## Common Commands
 
@@ -36,7 +56,7 @@ yarn check:watch  # Run svelte-check in watch mode
 
 ```
 PocketKit/
-├── app/                    # SvelteKit frontend
+├── app/                    # SvelteKit frontend (TEMPLATE)
 │   ├── src/
 │   │   ├── routes/         # File-based routing
 │   │   │   ├── auth/       # Auth pages (login, register)
@@ -49,14 +69,19 @@ PocketKit/
 │   │   └── app.d.ts                    # Type definitions
 │   └── package.json
 │
-├── server/                 # PocketBase backend
-│   ├── pocketbase          # PocketBase binary
+├── server/                 # PocketBase backend (TEMPLATE)
+│   ├── pocketbase          # PocketBase binary (auto-downloaded by GET-STARTED.sh)
 │   ├── pb_data/            # Database & files (gitignored)
 │   ├── pb_migrations/      # Schema migrations
 │   ├── Dockerfile          # Fly.io deployment
 │   └── fly.toml            # Fly.io configuration
 │
-└── docs/                   # Starlight documentation site
+├── docs/                   # Public documentation site (Starlight)
+│   └── src/content/docs/   # Documentation markdown files
+│
+├── GET-STARTED.sh          # Quick setup script for new users
+├── readme.md               # Main README with quickstart
+└── CLAUDE.md               # This file - guidance for Claude Code
 ```
 
 ## Architecture
