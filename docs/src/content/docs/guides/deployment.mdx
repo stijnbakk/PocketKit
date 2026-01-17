@@ -3,6 +3,8 @@ title: Deployment Guide
 description: Deploy your PocketKit app to Vercel and Fly.io
 ---
 
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
 This guide covers deploying PocketKit to production using free hosting:
 - **Frontend (SvelteKit)** → Vercel
 - **Backend (PocketBase)** → Fly.io
@@ -138,9 +140,23 @@ Log in with your superuser credentials.
 
 You can deploy via GitHub integration (recommended) or CLI:
 
-```bash
-npm i -g vercel
-```
+<Tabs syncKey="package-managers">
+  <TabItem label="yarn">
+  ```bash
+  yarn global add vercel
+  ```
+  </TabItem>
+  <TabItem label="pnpm">
+  ```bash
+  pnpm add -g vercel
+  ```
+  </TabItem>
+  <TabItem label="npm">
+  ```bash
+  npm i -g vercel
+  ```
+  </TabItem>
+</Tabs>
 
 ### Connect to GitHub
 
@@ -156,8 +172,19 @@ When setting up the project:
 
 1. **Framework Preset**: SvelteKit (should be auto-detected)
 2. **Root Directory**: `app`
-3. **Build Command**: `yarn build` (default)
-4. **Output Directory**: `.svelte-kit` (default)
+3. **Output Directory**: `.svelte-kit` (default)
+
+<Tabs syncKey="package-managers">
+  <TabItem label="yarn">
+  **Build Command**: `yarn build` (default)
+  </TabItem>
+  <TabItem label="pnpm">
+  **Build Command**: `pnpm build`
+  </TabItem>
+  <TabItem label="npm">
+  **Build Command**: `npm run build` (default)
+  </TabItem>
+</Tabs>
 
 ### Set Environment Variables
 

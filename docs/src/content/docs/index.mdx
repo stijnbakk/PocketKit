@@ -19,7 +19,7 @@ hero:
       variant: minimal
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
 
 ## What is PocketKit?
 
@@ -43,11 +43,31 @@ cd PocketKit
 # 2. Run the get started script (auto-installs everything)
 ./GET-STARTED.sh
 # Choose between SvelteKit or React/Next.js
-
-# 3. Start coding
-cd app-svelte  # or app-react
-npm run dev    # or: yarn dev / pnpm dev
 ```
+
+<Tabs syncKey="package-managers">
+  <TabItem label="yarn">
+  ```bash
+  # 3. Start coding
+  cd app-svelte  # or app-react
+  yarn dev
+  ```
+  </TabItem>
+  <TabItem label="pnpm">
+  ```bash
+  # 3. Start coding
+  cd app-svelte  # or app-react
+  pnpm dev
+  ```
+  </TabItem>
+  <TabItem label="npm">
+  ```bash
+  # 3. Start coding
+  cd app-svelte  # or app-react
+  npm run dev
+  ```
+  </TabItem>
+</Tabs>
 
 The script automatically:
 - Lets you choose between SvelteKit or React/Next.js

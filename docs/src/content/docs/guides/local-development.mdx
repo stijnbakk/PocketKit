@@ -3,6 +3,8 @@ title: Local Development
 description: Learn how to run PocketKit locally for development
 ---
 
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
 This guide will help you get PocketKit running on your local machine.
 
 ## Prerequisites
@@ -38,15 +40,41 @@ Then it will automatically:
 
 Once complete, start developing:
 
-```bash
-# For SvelteKit
-cd app-svelte
-npm run dev  # or: yarn dev / pnpm dev
+<Tabs syncKey="package-managers">
+  <TabItem label="yarn">
+  ```bash
+  # For SvelteKit
+  cd app-svelte
+  yarn dev
 
-# For React/Next.js
-cd app-react
-npm run dev  # or: yarn dev / pnpm dev
-```
+  # For React/Next.js
+  cd app-react
+  yarn dev
+  ```
+  </TabItem>
+  <TabItem label="pnpm">
+  ```bash
+  # For SvelteKit
+  cd app-svelte
+  pnpm dev
+
+  # For React/Next.js
+  cd app-react
+  pnpm dev
+  ```
+  </TabItem>
+  <TabItem label="npm">
+  ```bash
+  # For SvelteKit
+  cd app-svelte
+  npm run dev
+
+  # For React/Next.js
+  cd app-react
+  npm run dev
+  ```
+  </TabItem>
+</Tabs>
 
 :::tip
 The `GET-STARTED.sh` script handles everything! Skip to [Access the Application](#access-the-application) if you used this method.
@@ -74,15 +102,41 @@ Choose one app directory based on your preferred framework.
 
 Navigate to your chosen app directory and install the dependencies:
 
-```bash
-# For SvelteKit
-cd app-svelte
-yarn install
+<Tabs syncKey="package-managers">
+  <TabItem label="yarn">
+  ```bash
+  # For SvelteKit
+  cd app-svelte
+  yarn install
 
-# OR for React/Next.js
-cd app-react
-npm install
-```
+  # OR for React/Next.js
+  cd app-react
+  yarn install
+  ```
+  </TabItem>
+  <TabItem label="pnpm">
+  ```bash
+  # For SvelteKit
+  cd app-svelte
+  pnpm install
+
+  # OR for React/Next.js
+  cd app-react
+  pnpm install
+  ```
+  </TabItem>
+  <TabItem label="npm">
+  ```bash
+  # For SvelteKit
+  cd app-svelte
+  npm install
+
+  # OR for React/Next.js
+  cd app-react
+  npm install
+  ```
+  </TabItem>
+</Tabs>
 
 ## Download PocketBase
 
@@ -105,20 +159,54 @@ chmod +x ../server/pocketbase
 From your chosen app directory, run:
 
 **SvelteKit:**
-```bash
-cd app-svelte
-yarn dev
-```
+
+<Tabs syncKey="package-managers">
+  <TabItem label="yarn">
+  ```bash
+  cd app-svelte
+  yarn dev
+  ```
+  </TabItem>
+  <TabItem label="pnpm">
+  ```bash
+  cd app-svelte
+  pnpm dev
+  ```
+  </TabItem>
+  <TabItem label="npm">
+  ```bash
+  cd app-svelte
+  npm run dev
+  ```
+  </TabItem>
+</Tabs>
 
 This single command will:
 - Start the SvelteKit dev server on `http://localhost:5173`
 - Launch PocketBase on `http://localhost:8090`
 
 **React/Next.js:**
-```bash
-cd app-react
-npm run dev
-```
+
+<Tabs syncKey="package-managers">
+  <TabItem label="yarn">
+  ```bash
+  cd app-react
+  yarn dev
+  ```
+  </TabItem>
+  <TabItem label="pnpm">
+  ```bash
+  cd app-react
+  pnpm dev
+  ```
+  </TabItem>
+  <TabItem label="npm">
+  ```bash
+  cd app-react
+  npm run dev
+  ```
+  </TabItem>
+</Tabs>
 
 This single command will:
 - Start the Next.js dev server on `http://localhost:3000`
@@ -251,7 +339,7 @@ On macOS, you might see a security warning when running PocketBase:
 1. Go to **System Settings** → **Privacy & Security**
 2. Look for a message about PocketBase being blocked
 3. Click **Allow Anyway**
-4. Run `yarn dev` again
+4. Run the dev command again
 
 ## Next Steps
 
